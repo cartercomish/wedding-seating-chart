@@ -1,0 +1,15 @@
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Dependencies / env (if you add them later)
+node_modules/
+.env
+.env.*
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*~

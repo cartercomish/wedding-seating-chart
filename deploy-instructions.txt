@@ -1,0 +1,22 @@
+Seating chart — deploy notes
+============================
+
+1) Google Apps Script
+   - Open your spreadsheet: Extensions → Apps Script.
+   - Replace the project code with the contents of apps-script/Code.gs (single file, or merge into your existing project).
+   - If your RSVP responses tab is not named exactly "RSVP", change the RSVP_TAB constant at the top of Code.gs.
+   - Seating data uses tab name "Seating Plan" (created on first save if missing).
+   - Invite list for getGuests uses tab name "Guest List" (must exist; columns: Full Name, Family ID as before).
+   - Deploy → Manage deployments → Select type "Web app" → New version → Deploy.
+   - Copy the Web app URL and paste it into config.js as scriptUrl (same URL the wedding site uses).
+
+2) Local use
+   - Edit config.js and set scriptUrl to your web app URL.
+   - Open index.html via a local static server (recommended), e.g.:
+       npx serve .
+     or VS Code "Live Server", so fetch() works reliably.
+   - Drag guests onto seats; Save writes rows to "Seating Plan"; Reload pulls RSVP "yes" guests and the saved plan.
+
+3) Wedding website
+   - The live site keeps using ?action=getGuests — Code.gs still implements getGuests and submitRSVP.
+   - Do not change the Wedding_Website repo; paste the script from this repo’s apps-script/Code.gs only in Apps Script.

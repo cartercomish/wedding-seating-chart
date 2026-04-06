@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Seating plan</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Wedding seating</h1>
+      <div class="toolbar">
+        <button type="button" id="btn-reload" class="primary">Reload from sheet</button>
+        <button type="button" id="btn-save" class="primary">Save to sheet</button>
+        <span class="status" id="status"></span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <h2>Unassigned guests</h2>
+        <p class="hint">Drag names onto a seat. Placed guests show initials; hover for the full name. Seats are numbered clockwise from the top-left: 1–4 along the top, 8–5 along the bottom.</p>
+        <div id="pool" class="pool" data-drop-zone="pool"></div>
+      </aside>
+
+      <main class="main">
+        <p class="legend legend--desktop">
+          Three rows of tables (each group below). Each table: seats 1–4 top edge, 8–5 bottom edge (clockwise from top-left).
+        </p>
+        <p class="legend legend--mobile">
+          Tap an <strong>empty</strong> seat to assign someone; tap <strong>initials</strong> to see their name or remove them. Drag-and-drop works on larger screens.
+        </p>
+        <div id="room" class="room" aria-label="Seating layout"></div>
+      </main>
+    </div>
+
+    <div
+      id="guest-picker"
+      class="guest-picker"
+      hidden
+      aria-hidden="true"
+    >
+      <div class="guest-picker-backdrop" tabindex="-1"></div>
+      <div
+        class="guest-picker-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="guest-picker-title"
+      >
+        <div class="guest-picker-header">
+          <h2 id="guest-picker-title">Assign guest</h2>
+          <p id="guest-picker-subtitle" class="guest-picker-subtitle"></p>
+          <button
+            type="button"
+            id="guest-picker-close"
+            class="guest-picker-close"
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </div>
+        <input
+          type="search"
+          id="guest-picker-search"
+          class="guest-picker-search"
+          placeholder="Search names…"
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+        />
+        <div id="guest-picker-list" class="guest-picker-list"></div>
+        <div class="guest-picker-footer">
+          <button type="button" id="guest-picker-cancel" class="guest-picker-cancel">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="seat-occupant-sheet"
+      class="seat-occupant-sheet"
+      hidden
+      aria-hidden="true"
+    >
+      <div class="seat-occupant-backdrop" tabindex="-1"></div>
+      <div
+        class="seat-occupant-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="seat-occupant-name"
+      >
+        <div class="seat-occupant-header">
+          <button
+            type="button"
+            id="seat-occupant-close"
+            class="seat-occupant-close"
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </div>
+        <p id="seat-occupant-name" class="seat-occupant-name"></p>
+        <p id="seat-occupant-meta" class="seat-occupant-meta"></p>
+        <div class="seat-occupant-actions">
+          <button type="button" id="seat-occupant-remove" class="seat-occupant-remove">
+            <svg
+              class="seat-occupant-remove-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              />
+              <line x1="10" y1="11" x2="10" y2="17" />
+              <line x1="14" y1="11" x2="14" y2="17" />
+            </svg>
+            Remove from seat
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="note">
+      Configure <code>config.js</code> with your Apps Script web app URL. The seating tab
+      <code>Seating Plan</code> is created automatically on first save (if missing). The wedding site invite list uses the <code>Guest List</code> tab.
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
