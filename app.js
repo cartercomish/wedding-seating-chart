@@ -9,6 +9,9 @@
     [8, 7, 6, 5]
   ];
 
+  /** Tables with a light yellow panel (end tables in each row of five). */
+  var YELLOW_FILL_TABLES = { 4: true, 5: true, 9: true, 10: true, 14: true, 15: true };
+
   var cfg = window.SEATING_CHART_CONFIG;
   if (!cfg || !cfg.scriptUrl) {
     console.error('Set scriptUrl in config.js.');
@@ -340,6 +343,9 @@
   function renderTableBlock(tableNum) {
     var wrap = document.createElement('div');
     wrap.className = 'table-block';
+    if (YELLOW_FILL_TABLES[tableNum]) {
+      wrap.classList.add('table-block--yellow');
+    }
     var h = document.createElement('h3');
     h.textContent = 'Table ' + tableNum;
     wrap.appendChild(h);

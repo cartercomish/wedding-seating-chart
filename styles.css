@@ -245,6 +245,11 @@ body.seat-occupant-open {
   padding: 0.5rem;
 }
 
+.table-block--yellow {
+  background: #fffbeb;
+  border-color: #e8e0c8;
+}
+
 .table-block h3 {
   margin: 0 0 0.35rem;
   font-size: 0.8rem;
