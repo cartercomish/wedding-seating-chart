@@ -232,17 +232,43 @@
     span.draggable = true;
     span.dataset.guestName = name;
     span.dataset.source = source || '';
+    span.addEventListener('selectstart', function (e) {
+      e.preventDefault();
+    });
+    span.addEventListener('mousedown', function (e) {
+      if (e.button === 0) {
+        var sel = window.getSelection && window.getSelection();
+        if (sel && sel.rangeCount) sel.removeAllRanges();
+      }
+    });
     span.addEventListener('dragstart', onDragStart);
     span.addEventListener('dragend', onDragEnd);
     return span;
   }
 
-  var dragInfo = { name: '', source: '' };
+  var dragInfo = {
+    name: '',
+    source: '',
+    sourceTable: null,
+    sourceSeat: null
+  };
 
   function onDragStart(ev) {
     var el = ev.target;
     dragInfo.name = el.dataset.guestName || '';
     dragInfo.source = el.dataset.source || '';
+    if (
+      el.dataset.table !== undefined &&
+      el.dataset.table !== '' &&
+      el.dataset.seat !== undefined &&
+      el.dataset.seat !== ''
+    ) {
+      dragInfo.sourceTable = parseInt(el.dataset.table, 10);
+      dragInfo.sourceSeat = parseInt(el.dataset.seat, 10);
+    } else {
+      dragInfo.sourceTable = null;
+      dragInfo.sourceSeat = null;
+    }
     el.classList.add('dragging');
     ev.dataTransfer.setData('text/plain', dragInfo.name);
     ev.dataTransfer.effectAllowed = 'move';
@@ -283,6 +309,23 @@
     if (!name) return;
     var table = parseInt(cell.dataset.table, 10);
     var seat = parseInt(cell.dataset.seat, 10);
+    var srcT = dragInfo.sourceTable;
+    var srcS = dragInfo.sourceSeat;
+    var occupant = (state.assignments[table][seat] || '').trim();
+
+    if (
+      srcT != null &&
+      srcS != null &&
+      occupant &&
+      occupant.toLowerCase() !== name.toLowerCase()
+    ) {
+      if (srcT === table && srcS === seat) return;
+      state.assignments[srcT][srcS] = occupant;
+      state.assignments[table][seat] = name;
+      renderAll();
+      return;
+    }
+
     clearGuestFromAssignments(table, seat, name);
     state.assignments[table][seat] = name;
     renderAll();

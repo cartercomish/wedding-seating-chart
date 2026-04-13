@@ -327,6 +327,22 @@ body.seat-occupant-open {
   cursor: grab;
   font-size: 0.78rem;
   line-height: 1.3;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  /* Avoid first drag attempt selecting text instead of starting drag */
+}
+
+.guest-chip:hover {
+  border-color: var(--accent);
+  background: #fffef9;
+  box-shadow: 0 2px 6px rgba(44, 40, 37, 0.08);
+}
+
+.guest-chip:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 1px;
 }
 
 .pool .guest-chip {
@@ -365,6 +381,12 @@ body.seat-occupant-open {
   line-height: 1.1;
   white-space: nowrap;
   text-align: center;
+}
+
+.seat-cell .guest-chip--compact:hover {
+  background: #f0f7f0;
+  border-color: var(--accent);
+  box-shadow: 0 1px 4px rgba(44, 40, 37, 0.1);
 }
 
 .guest-chip:active {
