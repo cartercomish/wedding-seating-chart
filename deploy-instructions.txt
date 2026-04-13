@@ -15,7 +15,7 @@ Seating chart — deploy notes
    - Open index.html via a local static server (recommended), e.g.:
        npx serve .
      or VS Code "Live Server", so fetch() works reliably.
-   - Drag guests onto seats; Save writes rows to "Seating Plan"; Reload pulls RSVP "yes" guests and the saved plan.
+   - Drag guests onto seats; Save writes rows to "Seating Plan". Opening/refreshing the page loads RSVP "yes" guests and the saved plan.
 
 3) Wedding website
    - The live site keeps using ?action=getGuests — Code.gs still implements getGuests and submitRSVP.

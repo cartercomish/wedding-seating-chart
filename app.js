@@ -609,9 +609,6 @@
       closeSeatOccupantSheet
     );
 
-    $('#btn-reload').addEventListener('click', function () {
-      loadData();
-    });
     $('#btn-save').addEventListener('click', function () {
       savePlan();
     });
