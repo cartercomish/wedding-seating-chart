@@ -12,6 +12,15 @@
   /** Tables with a light yellow panel (end tables in each row of five). */
   var YELLOW_FILL_TABLES = { 4: true, 5: true, 9: true, 10: true, 14: true, 15: true };
 
+  var BRIDE_GROOM_NAMES = {
+    'carter comish': true,
+    'sarah wildeman': true
+  };
+
+  function isBrideOrGroom(fullName) {
+    return !!BRIDE_GROOM_NAMES[String(fullName || '').trim().toLowerCase()];
+  }
+
   var cfg = window.SEATING_CHART_CONFIG;
   if (!cfg || !cfg.scriptUrl) {
     console.error('Set scriptUrl in config.js.');
@@ -221,6 +230,9 @@
     options = options || {};
     var span = document.createElement('span');
     span.className = 'guest-chip';
+    if (isBrideOrGroom(name)) {
+      span.classList.add('guest-chip--shimmer');
+    }
     if (options.compact) {
       span.classList.add('guest-chip--compact');
       span.textContent = initialsFromFullName(name);

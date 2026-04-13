@@ -340,6 +340,55 @@ body.seat-occupant-open {
   box-shadow: 0 2px 6px rgba(44, 40, 37, 0.08);
 }
 
+.guest-chip.guest-chip--shimmer {
+  background: linear-gradient(
+    95deg,
+    #fff8e8 0%,
+    #fffcf0 22%,
+    #ffeaa7 45%,
+    #fff8dc 55%,
+    #fffcf0 78%,
+    #fff8e8 100%
+  );
+  background-size: 220% 100%;
+  animation: guest-chip-shimmer 3.2s ease-in-out infinite;
+  border-color: #d4c4a0;
+}
+
+.guest-chip.guest-chip--shimmer:hover {
+  background-size: 220% 100%;
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.25);
+}
+
+@keyframes guest-chip-shimmer {
+  0% {
+    background-position: 120% 0;
+  }
+  50% {
+    background-position: -20% 0;
+  }
+  100% {
+    background-position: 120% 0;
+  }
+}
+
+.seat-cell .guest-chip--compact.guest-chip--shimmer:hover {
+  background: linear-gradient(
+    95deg,
+    #fff8e8 0%,
+    #fffcf0 22%,
+    #ffeaa7 45%,
+    #fff8dc 55%,
+    #fffcf0 78%,
+    #fff8e8 100%
+  );
+  background-size: 220% 100%;
+  animation: guest-chip-shimmer 3.2s ease-in-out infinite;
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+}
+
 .guest-chip:focus-visible {
   outline: 2px solid var(--accent-light);
   outline-offset: 1px;
